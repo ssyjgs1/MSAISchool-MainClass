@@ -9,3 +9,5 @@ Python 및 AI를 공부하는 동안 정리해 놓는 저장소입니다.
 - Data Processing(4가지로 데이터를 다루는 방법에 대해)실습을 진행하였습니다. 
 - 특강으로 AI를 사용한 이미지 생성을 colab에서 구동해보았습니다. 좋은 그래픽 카드를 갖고 싶습니다. :(
 - Orange Data Mininig을 이용하여 다양한 machine learning 모델들을 시각화하여 다양한 지표 산출을 실습하였습니다.
+- AI의 classic machine learning의 일환으로 Scikit Learn, k-NN Algorithm을 실습하였습니다.
+- 지도학습(supervised learning)의 두 갈래인 regression(linear regression, decision tree regressor, support vector machine regressor, multi layer perceptron regressor), classification(logistic regression, support vector machine, decision tree, random forest)을 실습하였습니다.
