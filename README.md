@@ -11,3 +11,4 @@ Python 및 AI를 공부하는 동안 정리해 놓는 저장소입니다.
 - Orange Data Mininig을 이용하여 다양한 machine learning 모델들을 시각화하여 다양한 지표 산출을 실습하였습니다.
 - AI의 classic machine learning의 일환으로 Scikit Learn, k-NN Algorithm을 실습하였습니다.
 - 지도학습(supervised learning)의 두 갈래인 regression(linear regression, decision tree regressor, support vector machine regressor, multi layer perceptron regressor), classification(logistic regression, support vector machine, decision tree, random forest)을 실습하였습니다.
+- 비지도학습(unsupervised learning)을 k-Means Algorithm(+MinMaxScaler, PCA[차원 축소], Hierarchical Clustering, Dendrogram, Silhouette 등의 방법, 도구를 사용하여 실습하였습니다.
