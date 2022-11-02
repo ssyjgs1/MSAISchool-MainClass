@@ -13,3 +13,4 @@ Python 및 AI를 공부하는 동안 정리해 놓는 저장소입니다.
 - 지도학습(supervised learning)의 두 갈래인 regression(linear regression, decision tree regressor, support vector machine regressor, multi layer perceptron regressor), classification(logistic regression, support vector machine, decision tree, random forest)을 실습하였습니다.
 - 비지도학습(unsupervised learning)을 k-Means Algorithm(+MinMaxScaler, PCA[차원 축소], Hierarchical Clustering, Dendrogram, Silhouette 등의 방법, 도구를 사용하여 실습하였습니다.
 - Tensor, scala, vector에 대한 연산, 전치행렬에 대한 실습을 진행하였습니다.
+- 신경망의 기초 구조, 수학(+식), Deep Learning의 프레임워크 중 하나인 Keras의 기초 실습을 진행하였습니다.
