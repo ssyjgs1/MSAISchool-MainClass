@@ -16,3 +16,4 @@ Python 및 AI를 공부하는 동안 정리해 놓는 저장소입니다.
 - 신경망의 기초 구조, 수학(+식), Deep Learning의 프레임워크 중 하나인 Keras의 기초 실습을 진행하였습니다.
 - Keras를 이용하여 이진 분류, 다중 분류, 회귀 등의 실습을 진행하였습니다.
 - CNN을 이용한 실습을 진행하였습니다.
+- Ubuntu 상에서의 Docker, Kubernetes(Minikube)의 실습을 진행하였습니다.
