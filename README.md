@@ -17,3 +17,4 @@ Python 및 AI를 공부하는 동안 정리해 놓는 저장소입니다.
 - Keras를 이용하여 이진 분류, 다중 분류, 회귀 등의 실습을 진행하였습니다.
 - CNN을 이용한 실습을 진행하였습니다.
 - Ubuntu 상에서의 Docker, Kubernetes(Minikube)의 실습을 진행하였습니다.
+- Azure Machine Learning Studio 환경에서 데이터셋을 주고 학습시킨 뒤 최적화된 모델을 생성 및 배포하는 실습을 진행하였습니다.
