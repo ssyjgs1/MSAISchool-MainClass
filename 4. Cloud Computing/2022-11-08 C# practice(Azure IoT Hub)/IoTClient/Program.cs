@@ -14,7 +14,7 @@ namespace IoTClient
     internal class Program
     {
         private static System.Timers.Timer SensorTimer;
-        private const string DeviceConnectionString = "HostName=labuser77iot.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=X6iUR0Lw2jm/IbmiM+m6L2htemFPCjw+OCrVWmY3pJk=";
+        private const string DeviceConnectionString = "ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ";
         private const string DeviceID = "Device1";
         private static DeviceClient SensorDevice = null;
 
