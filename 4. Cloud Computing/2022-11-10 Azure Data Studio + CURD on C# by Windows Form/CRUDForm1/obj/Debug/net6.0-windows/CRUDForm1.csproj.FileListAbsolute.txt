@@ -1,0 +1,17 @@
+C:\Users\ssyjgs1\Desktop\CRUDForm1\bin\Debug\net6.0-windows\CRUDForm1.exe
+C:\Users\ssyjgs1\Desktop\CRUDForm1\bin\Debug\net6.0-windows\CRUDForm1.deps.json
+C:\Users\ssyjgs1\Desktop\CRUDForm1\bin\Debug\net6.0-windows\CRUDForm1.runtimeconfig.json
+C:\Users\ssyjgs1\Desktop\CRUDForm1\bin\Debug\net6.0-windows\CRUDForm1.dll
+C:\Users\ssyjgs1\Desktop\CRUDForm1\bin\Debug\net6.0-windows\CRUDForm1.pdb
+C:\Users\ssyjgs1\Desktop\CRUDForm1\obj\Debug\net6.0-windows\CRUDForm1.csproj.AssemblyReference.cache
+C:\Users\ssyjgs1\Desktop\CRUDForm1\obj\Debug\net6.0-windows\CRUDForm1.csproj.GenerateResource.cache
+C:\Users\ssyjgs1\Desktop\CRUDForm1\obj\Debug\net6.0-windows\CRUDForm1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ssyjgs1\Desktop\CRUDForm1\obj\Debug\net6.0-windows\CRUDForm1.AssemblyInfoInputs.cache
+C:\Users\ssyjgs1\Desktop\CRUDForm1\obj\Debug\net6.0-windows\CRUDForm1.AssemblyInfo.cs
+C:\Users\ssyjgs1\Desktop\CRUDForm1\obj\Debug\net6.0-windows\CRUDForm1.csproj.CoreCompileInputs.cache
+C:\Users\ssyjgs1\Desktop\CRUDForm1\obj\Debug\net6.0-windows\CRUDForm1.dll
+C:\Users\ssyjgs1\Desktop\CRUDForm1\obj\Debug\net6.0-windows\refint\CRUDForm1.dll
+C:\Users\ssyjgs1\Desktop\CRUDForm1\obj\Debug\net6.0-windows\CRUDForm1.pdb
+C:\Users\ssyjgs1\Desktop\CRUDForm1\obj\Debug\net6.0-windows\CRUDForm1.genruntimeconfig.cache
+C:\Users\ssyjgs1\Desktop\CRUDForm1\obj\Debug\net6.0-windows\ref\CRUDForm1.dll
+C:\Users\ssyjgs1\Desktop\CRUDForm1\obj\Debug\net6.0-windows\CRUDForm1.frmMain.resources
