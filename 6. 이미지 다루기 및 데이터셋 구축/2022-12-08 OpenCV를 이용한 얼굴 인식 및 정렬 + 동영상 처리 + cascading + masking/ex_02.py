@@ -39,11 +39,22 @@ mask = np.zeros((683,1024), dtype='uint8')
 rec1=cv2.rectangle(mask,(60,50),(280,280), (255,255,255), -1)
 rec2=cv2.rectangle(mask, (420,50),(550,230), (255,255,255), -1)
 rec3=cv2.rectangle(mask, (750,50),(920,280), (255,255,255), -1)
+cv2.imwrite('./mask.png', mask)
+mask = cv2.imread('./mask.png')
 
-h1 = cv2.imread('./h1.png')
-h2 = cv2.imread('./h2.png')
-h3 = cv2.imread('./h3.jpg')
+p1 = cv2.imread('./p1.jpg')
+small_p1 = cv2.resize(p1,(220,230))
+p2 = cv2.imread('./p2.jpeg')
+small_p2 = cv2.resize(p2,(130,180))
+p3 = cv2.imread('./p3.png')
+small_p3 = cv2.resize(p3,(170,230))
 
+p1x_offset = 60
+p1y_offset = 50
+
+p1x_end = p1x_offset + small_p1.shape[0]
+p1y_end = p1y_offset + small_p1.shape[1]
+mask[p1y_offset:p1y_end, p1x_offset:p1x_end] = small_p1
 
 cv2.imshow('...', mask)
 cv2.waitKey(0)
