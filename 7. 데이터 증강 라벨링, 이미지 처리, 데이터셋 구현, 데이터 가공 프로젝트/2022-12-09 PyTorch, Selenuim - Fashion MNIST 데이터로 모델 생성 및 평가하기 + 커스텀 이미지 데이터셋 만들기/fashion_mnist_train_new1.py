@@ -14,8 +14,6 @@ import torch.nn.functional as F
 import torch.optim as optim
 from torchvision import datasets, transforms
 
-
-
 training_data = datasets.FashionMNIST(
     root='data',
     train=True,
@@ -141,8 +139,6 @@ transform = transforms.Compose([
                  transforms.Normalize((0.1307,), (0.3081,))])
 
 print("init model done")
-
-
 
 epochs = 10
 lr = 0.01
