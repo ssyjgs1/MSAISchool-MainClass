@@ -72,7 +72,7 @@ for image_info in coco_info['images'] :
     for bbox, category in zip(annotation['boxes'], annotation['categories']) :
         # print(bbox, category)
         x1, y1, w, h = bbox
-        # print(x1, y1, w, h)
+        # print(filename, x1, y1, w, h)
 
         rec_img = cv2.rectangle(img, (int(x1), int(y1)), (int(x1+w), int(y1+h)), (225,0,255), thickness=2)
     
