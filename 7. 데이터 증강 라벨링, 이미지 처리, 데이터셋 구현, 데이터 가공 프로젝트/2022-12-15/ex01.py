@@ -74,26 +74,26 @@ class CatDataset(Dataset): # basic of custom dataset
 # 어떤 기능을 하는지 각각 캡처떠서 제출
 
 torchvision_transform = transforms.Compose([
-    # transforms.Pad(padding=100),
-    # transforms.Resize((256,256)),
-    # transforms.CenterCrop(size=(30)), # 사용을 거의 하지 않는다. 학습에 영 도움이 안 되는 crop이 됨. 만약, 이미지 상 다 동일한 위치면 사용해도 됨.
-    # transforms.Grayscale(), # 특수한 경우에만 사용
-    # transforms.ColorJitter(brightness=0.5, hue=0.2, contrast=0.3),
-    # transforms.GaussianBlur(kernel_size=(3,9), sigma=(0.1, 5)),
-    # transforms.RandomPerspective(distortion_scale=0.7, p=1.0),
-    # transforms.RandomRotation(degrees=(0,100)),
-    # transforms.RandomAffine(degrees=(30,60), translate=(0.1, 0.3), scale=(0.5,0.7)),
-    # transforms.ElasticTransform(alpha=255.0), # 버전 차이 --> 상위 버전에서 사용 가능
-    # transforms.RandomEqualize(p=1),
-    # transforms.RandomHorizontalFlip(),
-    # transforms.RandomVerticalFlip(),
-    # transforms.AutoAugment(), # 자동으로 아무거나 augmentation을 먹여줌. 뭐가 들어갈지 모름;;
-    
-    # 비교용 transforms 설정
+    transforms.Pad(padding=100),
     transforms.Resize((256,256)),
-    transforms.RandomCrop(224),
+    transforms.CenterCrop(size=(30)), # 사용을 거의 하지 않는다. 학습에 영 도움이 안 되는 crop이 됨. 만약, 이미지 상 다 동일한 위치면 사용해도 됨.
+    transforms.Grayscale(), # 특수한 경우에만 사용
+    transforms.ColorJitter(brightness=0.5, hue=0.2, contrast=0.3),
+    transforms.GaussianBlur(kernel_size=(3,9), sigma=(0.1, 5)),
+    transforms.RandomPerspective(distortion_scale=0.7, p=1.0),
+    transforms.RandomRotation(degrees=(0,100)),
+    transforms.RandomAffine(degrees=(30,60), translate=(0.1, 0.3), scale=(0.5,0.7)),
+    # transforms.ElasticTransform(alpha=255.0), # 버전 차이 --> 상위 버전에서 사용 가능
+    transforms.RandomEqualize(p=1),
     transforms.RandomHorizontalFlip(),
     transforms.RandomVerticalFlip(),
+    transforms.AutoAugment(), # 자동으로 아무거나 augmentation을 먹여줌. 뭐가 들어갈지 모름;;
+    
+    # # 비교용 transforms 설정
+    # transforms.Resize((256,256)),
+    # transforms.RandomCrop(224),
+    # transforms.RandomHorizontalFlip(),
+    # transforms.RandomVerticalFlip(),
     transforms.ToTensor() # augmentation 처리된 결과(=이미지)를 tensor화 해줘!
 ])
 
@@ -102,7 +102,7 @@ albumentations_transform = albumentations.Compose([
     albumentations.RandomCrop(224, 224),
     albumentations.HorizontalFlip(),
     albumentations.VerticalFlip(),
-    # albumentations.pytorch.transforms.ToTensor(),
+    # albumentations.pytorch.transforms.ToTensor(),  --> 이 버전에선 안 됨
     ToTensorV2()
 ])
 
