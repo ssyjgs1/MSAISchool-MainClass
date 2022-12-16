@@ -12,20 +12,44 @@ import glob
 from PIL import Image
 
 json_path = "./homework/instances_default.json"
-with open(json_path, "r") as f :
-    coco_info = json.load(f)
-assert len(coco_info) > 0, "파일 읽기 실패"
-print("json 파일 정보는 >>>", coco_info)
+categories = dict()
+anno_info = dict()
 
 class mycustomdataset(Dataset) :
     def __init__(self, file_path) :
-        pass
+        self.file_path = file_path
+        with open(self.file_path, "r") as f :
+            coco_info = json.load(f)
+        # print("json 파일 정보는 >>>", coco_info)
+        for category in coco_info["categories"] :
+            categories[category['id']] = category['name']
+            # print(categories[category['id']])
+        for annotation in coco_info['annotations'] :
+            # print(annotation)
+            image_id = annotation['image_id']
+            bbox = annotation['bbox']
+            category_id = annotation['category_id']
+            print(f"image_id : {image_id}, category_id, : {category_id}, bbox : {bbox}")
+
+            if image_id not in anno_info :
+                anno_info[image_id] = {
+                    "boxes" : [bbox],
+                    "categories" : [category_id]
+                }
+            else :
+                anno_info[image_id]["boxes"].append(bbox)
+                anno_info[category_id]["categories"].append(categories[category_id])
+    
     def __getitem__(self, index) :
         pass
         
     def __len__(self) :
         pass
 """-----------------------------------------------------------------------------------------------------"""
+mycustomdataset(json_path)
+print("categories >>> ",categories)
+print("anno_info >>> ", anno_info)
+exit()
 BOX_COLOR = (255,0,0) # red color
 TEXT_COLOR = (255,255,255) # white color
 
