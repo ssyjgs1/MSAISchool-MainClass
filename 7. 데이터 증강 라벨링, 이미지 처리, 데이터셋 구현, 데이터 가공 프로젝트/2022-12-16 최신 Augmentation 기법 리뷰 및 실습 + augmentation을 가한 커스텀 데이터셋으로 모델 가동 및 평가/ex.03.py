@@ -8,7 +8,7 @@ def visualize(image) :
     cv2.waitKey(0)
 
 # load a image from disk
-image = cv2.imread('./ressha.jpg')
+image = cv2.imread('./ressha.png')
 
 # visualize the original image
 # visualize(image)
