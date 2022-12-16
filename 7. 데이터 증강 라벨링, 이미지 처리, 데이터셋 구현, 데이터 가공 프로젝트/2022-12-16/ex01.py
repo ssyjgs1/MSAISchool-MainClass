@@ -29,7 +29,6 @@ bboxes = [[3.96, 183.38, 200.88, 214.03], [468.94, 92.01, 171.06,248.45]]
 category_ids = [1, 2]
 category_id_to_name = {1 : 'cat', 2 : 'dog'}
 
-# 하나씩 걸어서 과제에 첨부하자
 transform = A.Compose([
     A.RandomSizedBBoxSafeCrop(width=450, height=360, erosion_rate=0.2),
     A.HorizontalFlip(p=1),
