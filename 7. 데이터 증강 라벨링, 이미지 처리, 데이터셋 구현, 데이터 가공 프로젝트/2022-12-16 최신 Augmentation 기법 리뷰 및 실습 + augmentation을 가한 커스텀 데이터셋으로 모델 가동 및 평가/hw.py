@@ -45,11 +45,14 @@ class mycustomdataset(Dataset) :
         
     def __len__(self) :
         pass
-"""-----------------------------------------------------------------------------------------------------"""
+    
 mycustomdataset(json_path)
 print("categories >>> ",categories)
 print("anno_info >>> ", anno_info)
 exit()
+
+"""-----------------------------------------------------------------------------------------------------"""
+
 BOX_COLOR = (255,0,0) # red color
 TEXT_COLOR = (255,255,255) # white color
 
