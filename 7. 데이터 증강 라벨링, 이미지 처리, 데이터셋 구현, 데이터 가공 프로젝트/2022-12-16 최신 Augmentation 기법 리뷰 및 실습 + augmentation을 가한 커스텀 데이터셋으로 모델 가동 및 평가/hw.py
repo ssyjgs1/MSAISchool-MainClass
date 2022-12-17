@@ -14,6 +14,9 @@ from PIL import Image
 json_path = "./homework/instances_default.json"
 categories = dict()
 anno_info = dict()
+anno_info_set = []
+cate_name = []
+
 
 with open(json_path, "r") as f :
     coco_info = json.load(f)
@@ -25,6 +28,7 @@ with open(json_path, "r") as f :
 # coco_anno2sub_sub = coco_anno2sub['id']
 # # 1
 
+
 class mycustomdataset(Dataset) :
     def __init__(self, file_path) :
         self.file_path = file_path
@@ -34,7 +38,7 @@ class mycustomdataset(Dataset) :
         
         for category in coco_info["categories"] :
             categories[category['id']] = category['name']            
-
+        
         for annotation in coco_info['annotations'] :
             image_id = annotation['image_id']
             category_id = annotation['category_id']
@@ -43,18 +47,18 @@ class mycustomdataset(Dataset) :
             anno_info['image_id'] = image_id
             anno_info['category_id'] = category_id
             anno_info['bbox'] = bbox
-            print(anno_info['id'],anno_info['image_id'],anno_info['category_id'],anno_info['bbox'] )
 
-            if image_id not in anno_info :
-                anno_info.setdefault('image_id', annotation['image_id'])
-                anno_info.setdefault('bbox', annotation['bbox'])
-                anno_info.setdefault("category_id", annotation['category_id'])
-            # else :
-            #     anno_info['bbox'].append(annotation['bbox'])
-            #     anno_info['category_id'].append(categories[anno_info['category_id']])
-    
+            print(anno_info['id'],anno_info['image_id'],anno_info['category_id'],anno_info['bbox'] )
+            anno_info_set.append(anno_info['id'])
+            anno_info_set.append(anno_info['image_id'])
+            anno_info_set.append(anno_info['category_id'])
+            anno_info_set.append(anno_info['bbox'])
+        
+        for i in range(2) :
+            cate_name.append(coco_info['categories'][i]['name'])
+
     def __getitem__(self, index) :
-        return categories, anno_info
+        return categories, anno_info, anno_info_set
  
     def __len__(self) :
         return(len(self.file_path))
@@ -62,6 +66,8 @@ class mycustomdataset(Dataset) :
 mycustomdataset(json_path)
 print("categories >>>", categories)
 print("anno_info >>>", anno_info)
+print("anno_info_set >>>", anno_info_set)
+print('cate name >>> ' , cate_name)
 
 """-----------------------------------------------------------------------------------------------------"""
 
@@ -72,25 +78,24 @@ TEXT_COLOR = (255,255,255) # white color
 def visualize_bbox(image, bboxes, category_ids, category_id_to_name, color=BOX_COLOR, thickness=2) :
     img = image.copy()
     for bbox, category_id in zip(bboxes, category_ids) :
-        class_name = category_id_to_name[category_id]
-        print('class_name >>> ', class_name)
+        # class_name = category_id_to_name
+        # print('class_name >>> ', class_name)
         x_min, y_min, w, h = bbox
         x_min, x_max, y_min, y_max = int(x_min), int(x_min + w), int(y_min), int(y_min + h)
 
         cv2.rectangle(img, (x_min, y_min), (x_max, y_max), color=color, thickness=thickness)
-        cv2.putText(img, text=class_name, org=(x_min, y_min+30), fontFace=cv2.FONT_HERSHEY_COMPLEX, fontScale=1, color=color, thickness=thickness)
+        # cv2.putText(img, text=class_name, org=(x_min, y_min+30), fontFace=cv2.FONT_HERSHEY_COMPLEX, fontScale=1, color=color, thickness=thickness)
     cv2.imshow("test", img)
     cv2.waitKey(0)
     
 image = cv2.imread("./01.jpg")
 
-
-# print("bboxes >>>", bboxes)
-# print("category_ids >>>", category_ids)
-# print("category_id_to_name >>>", category_id_to_name)
-
-
-exit()
+bboxes = (anno_info_set[3],anno_info_set[7])
+category_ids =(anno_info_set[2], anno_info_set[6])
+category_id_to_name = cate_name
+print("bboxes >>>", bboxes)
+print("category_ids >>>", category_ids)
+print("category_id_to_name >>>", category_id_to_name)
 
 transform = A.Compose([
     A.RandomSizedBBoxSafeCrop(width=450, height=360, erosion_rate=0.2),
