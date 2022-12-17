@@ -17,7 +17,13 @@ anno_info = dict()
 
 with open(json_path, "r") as f :
     coco_info = json.load(f)
-print("json 파일 정보 >>>", coco_info)
+# # print("json 파일 정보 >>>", coco_info)
+# coco_anno2 = coco_info['categories']
+# # [{'id': 1, 'name': 'cat', 'supercategory': ''}, {'id': 2, 'name': 'dog', 'supercategory': ''}]
+# coco_anno2sub = coco_anno2[0]
+# # {'id': 1, 'name': 'cat', 'supercategory': ''}
+# coco_anno2sub_sub = coco_anno2sub['id']
+# # 1
 
 class mycustomdataset(Dataset) :
     def __init__(self, file_path) :
@@ -25,26 +31,28 @@ class mycustomdataset(Dataset) :
         with open(self.file_path, "r") as f :
             coco_info = json.load(f)
         # print("json 파일 정보 >>>", coco_info)
+        
         for category in coco_info["categories"] :
-            categories[category['id']] = category['name']
-            print(categories,'\n', categories[category['id']],'\n')
+            categories[category['id']] = category['name']            
 
         for annotation in coco_info['annotations'] :
-            print(annotation, '\n')
             image_id = annotation['image_id']
-            bbox = annotation['bbox']
             category_id = annotation['category_id']
-            print(f"image_id : {image_id}, category_id, : {category_id}, bbox : {bbox}", '\n')
+            bbox = annotation['bbox']
+            anno_info['id'] = annotation['id']
+            anno_info['image_id'] = image_id
+            anno_info['category_id'] = category_id
+            anno_info['bbox'] = bbox
+            print(anno_info['id'],anno_info['image_id'],anno_info['category_id'],anno_info['bbox'] )
 
             if image_id not in anno_info :
-                anno_info[image_id] = {
-                    "boxes" : [bbox],
-                    "categories" : [category_id]
-                }
-            else :
-                anno_info[image_id]["boxes"].append(bbox)
-                anno_info[category_id]["categories"].append(categories[category_id])
-            
+                anno_info.setdefault('image_id', annotation['image_id'])
+                anno_info.setdefault('bbox', annotation['bbox'])
+                anno_info.setdefault("category_id", annotation['category_id'])
+            # else :
+            #     anno_info['bbox'].append(annotation['bbox'])
+            #     anno_info['category_id'].append(categories[anno_info['category_id']])
+    
     def __getitem__(self, index) :
         return categories, anno_info
  
@@ -52,8 +60,8 @@ class mycustomdataset(Dataset) :
         return(len(self.file_path))
     
 mycustomdataset(json_path)
-print("categories >>> ",categories, '\n')
-print("anno_info >>> ", anno_info)
+print("categories >>>", categories)
+print("anno_info >>>", anno_info)
 
 """-----------------------------------------------------------------------------------------------------"""
 
@@ -77,12 +85,12 @@ def visualize_bbox(image, bboxes, category_ids, category_id_to_name, color=BOX_C
 image = cv2.imread("./01.jpg")
 
 
-# bboxes = coco_info['annotations'['bbox'[0]]]
-# print(bboxes)
-exit()
+# print("bboxes >>>", bboxes)
+# print("category_ids >>>", category_ids)
+# print("category_id_to_name >>>", category_id_to_name)
 
-category_ids = categories
-category_id_to_name = categories
+
+exit()
 
 transform = A.Compose([
     A.RandomSizedBBoxSafeCrop(width=450, height=360, erosion_rate=0.2),
