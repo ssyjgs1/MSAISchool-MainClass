@@ -15,21 +15,26 @@ json_path = "./homework/instances_default.json"
 categories = dict()
 anno_info = dict()
 
+with open(json_path, "r") as f :
+    coco_info = json.load(f)
+print("json 파일 정보 >>>", coco_info)
+
 class mycustomdataset(Dataset) :
     def __init__(self, file_path) :
         self.file_path = file_path
         with open(self.file_path, "r") as f :
             coco_info = json.load(f)
-        # print("json 파일 정보는 >>>", coco_info)
+        # print("json 파일 정보 >>>", coco_info)
         for category in coco_info["categories"] :
             categories[category['id']] = category['name']
-            # print(categories[category['id']])
+            print(categories,'\n', categories[category['id']],'\n')
+
         for annotation in coco_info['annotations'] :
-            # print(annotation)
+            print(annotation, '\n')
             image_id = annotation['image_id']
             bbox = annotation['bbox']
             category_id = annotation['category_id']
-            print(f"image_id : {image_id}, category_id, : {category_id}, bbox : {bbox}")
+            print(f"image_id : {image_id}, category_id, : {category_id}, bbox : {bbox}", '\n')
 
             if image_id not in anno_info :
                 anno_info[image_id] = {
@@ -39,17 +44,16 @@ class mycustomdataset(Dataset) :
             else :
                 anno_info[image_id]["boxes"].append(bbox)
                 anno_info[category_id]["categories"].append(categories[category_id])
-    
+            
     def __getitem__(self, index) :
-        pass
-        
+        return categories, anno_info
+ 
     def __len__(self) :
-        pass
+        return(len(self.file_path))
     
 mycustomdataset(json_path)
-print("categories >>> ",categories)
+print("categories >>> ",categories, '\n')
 print("anno_info >>> ", anno_info)
-exit()
 
 """-----------------------------------------------------------------------------------------------------"""
 
@@ -61,7 +65,7 @@ def visualize_bbox(image, bboxes, category_ids, category_id_to_name, color=BOX_C
     img = image.copy()
     for bbox, category_id in zip(bboxes, category_ids) :
         class_name = category_id_to_name[category_id]
-        # print('class_name >>> ', class_name)
+        print('class_name >>> ', class_name)
         x_min, y_min, w, h = bbox
         x_min, x_max, y_min, y_max = int(x_min), int(x_min + w), int(y_min), int(y_min + h)
 
@@ -72,9 +76,13 @@ def visualize_bbox(image, bboxes, category_ids, category_id_to_name, color=BOX_C
     
 image = cv2.imread("./01.jpg")
 
-bboxes = [[3.96, 183.38, 200.88, 214.03], [468.94, 92.01, 171.06,248.45]]
-category_ids = [1, 2]
-category_id_to_name = {1 : 'cat', 2 : 'dog'}
+
+# bboxes = coco_info['annotations'['bbox'[0]]]
+# print(bboxes)
+exit()
+
+category_ids = categories
+category_id_to_name = categories
 
 transform = A.Compose([
     A.RandomSizedBBoxSafeCrop(width=450, height=360, erosion_rate=0.2),
