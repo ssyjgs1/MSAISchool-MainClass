@@ -12,63 +12,32 @@ import glob
 from PIL import Image
 
 json_path = "./homework/instances_default.json"
-categories = dict()
-anno_info = dict()
-anno_info_set = []
-cate_name = []
-
-
-with open(json_path, "r") as f :
-    coco_info = json.load(f)
-# # print("json 파일 정보 >>>", coco_info)
-# coco_anno2 = coco_info['categories']
-# # [{'id': 1, 'name': 'cat', 'supercategory': ''}, {'id': 2, 'name': 'dog', 'supercategory': ''}]
-# coco_anno2sub = coco_anno2[0]
-# # {'id': 1, 'name': 'cat', 'supercategory': ''}
-# coco_anno2sub_sub = coco_anno2sub['id']
-# # 1
-
 
 class mycustomdataset(Dataset) :
     def __init__(self, file_path) :
         self.file_path = file_path
+        self.anno_info = []
+
         with open(self.file_path, "r") as f :
-            coco_info = json.load(f)
+            coco_info = dict(json.load(f))
         # print("json 파일 정보 >>>", coco_info)
         
-        for category in coco_info["categories"] :
-            categories[category['id']] = category['name']            
-        
-        for annotation in coco_info['annotations'] :
-            image_id = annotation['image_id']
-            category_id = annotation['category_id']
-            bbox = annotation['bbox']
-            anno_info['id'] = annotation['id']
-            anno_info['image_id'] = image_id
-            anno_info['category_id'] = category_id
-            anno_info['bbox'] = bbox
+        # for coco in self.coco_info["categories"] :
+        #     self.categories.append({coco['id']: coco['name']})      
 
-            print(anno_info['id'],anno_info['image_id'],anno_info['category_id'],anno_info['bbox'] )
-            anno_info_set.append(anno_info['id'])
-            anno_info_set.append(anno_info['image_id'])
-            anno_info_set.append(anno_info['category_id'])
-            anno_info_set.append(anno_info['bbox'])
-        
-        for i in range(2) :
-            cate_name.append(coco_info['categories'][i]['name'])
+            for coco in coco_info['annotations'] :
+                self.anno_info.append([coco['image_id'], coco['category_id'], coco['bbox']])
 
     def __getitem__(self, index) :
-        return categories, anno_info, anno_info_set
- 
+        return self.anno_info 
+    
     def __len__(self) :
         return(len(self.file_path))
-    
-mycustomdataset(json_path)
-print("categories >>>", categories)
-print("anno_info >>>", anno_info)
-print("anno_info_set >>>", anno_info_set)
-print('cate name >>> ' , cate_name)
 
+dataset = mycustomdataset(json_path) # 객체를 선언한 다음에 변수에 담아야 하고 이를 통해 호출한다. self가 들어갔으면 멤버 변수
+# print("categories >>>", dataset.categories)
+# print(dataset[0][0][2])
+# exit()
 """-----------------------------------------------------------------------------------------------------"""
 
 BOX_COLOR = (255,0,0) # red color
@@ -78,24 +47,23 @@ TEXT_COLOR = (255,255,255) # white color
 def visualize_bbox(image, bboxes, category_ids, category_id_to_name, color=BOX_COLOR, thickness=2) :
     img = image.copy()
     for bbox, category_id in zip(bboxes, category_ids) :
-        # class_name = category_id_to_name
+        class_name = category_id_to_name[category_id]
         # print('class_name >>> ', class_name)
         x_min, y_min, w, h = bbox
         x_min, x_max, y_min, y_max = int(x_min), int(x_min + w), int(y_min), int(y_min + h)
 
         cv2.rectangle(img, (x_min, y_min), (x_max, y_max), color=color, thickness=thickness)
-        # cv2.putText(img, text=class_name, org=(x_min, y_min+30), fontFace=cv2.FONT_HERSHEY_COMPLEX, fontScale=1, color=color, thickness=thickness)
+        cv2.putText(img, text=class_name, org=(x_min, y_min+30), fontFace=cv2.FONT_HERSHEY_COMPLEX, fontScale=1, color=color, thickness=thickness)
     cv2.imshow("test", img)
     cv2.waitKey(0)
     
 image = cv2.imread("./01.jpg")
+# print(dataset.anno_info[0][2])
 
-bboxes = (anno_info_set[3],anno_info_set[7])
-category_ids =(anno_info_set[2], anno_info_set[6])
-category_id_to_name = cate_name
-print("bboxes >>>", bboxes)
-print("category_ids >>>", category_ids)
-print("category_id_to_name >>>", category_id_to_name)
+bboxes = [dataset[0][1][2], dataset[0][0][2]]
+# print(dataset[0][1])
+category_ids = [1, 2]
+category_id_to_name = {1 : 'cat', 2 : 'dog'}
 
 transform = A.Compose([
     A.RandomSizedBBoxSafeCrop(width=450, height=360, erosion_rate=0.2),
