@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+# bounding box 좌표, save버튼, trigger, 이벤트 받아서 json으로 저장하는 기능까지 구현해본다면?
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
     QMetaObject, QObject, QPoint, QRect,
     QSize, QTime, QUrl, Qt)
