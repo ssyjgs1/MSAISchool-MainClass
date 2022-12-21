@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# bounding box 좌표, save버튼, trigger, 이벤트 받아서 json으로 저장하는 기능까지 구현해본다면?
+# bounding box 좌표, save버튼, (v)trigger, 이벤트 받아서 json으로 저장하는 기능까지 구현해본다면?
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
     QMetaObject, QObject, QPoint, QRect,
     QSize, QTime, QUrl, Qt)
@@ -15,6 +15,7 @@ import resource
 import sys
 import os
 from pathlib import Path
+import json
 
 
 def get_supported_mime_types():
@@ -64,6 +65,9 @@ class Ui_MainWindow(QMainWindow):
         prev_action.triggered.connect(self.prev_bbox)
         self.addAction(prev_action)
 
+        self.savebbox = dict()
+
+
     def setupUi(self):
         if not self.objectName():
             self.setObjectName(u"MainWindow")
@@ -79,6 +83,8 @@ class Ui_MainWindow(QMainWindow):
 
         self.save = QAction(self)
         self.save.setObjectName(u"save")
+        self.save.triggered.connect(QCoreApplication.savebbox)
+
         self.close = QAction(self)
         self.close.setObjectName(u"close")
         self.close.triggered.connect(QCoreApplication.quit)
@@ -278,6 +284,12 @@ class Ui_MainWindow(QMainWindow):
 
         self.update()
         QWidget.mouseReleaseEvent(self, event)
+
+    def savebbox(self, save_event) :
+        document = {"qrect" : self.bbox_list}
+        print(json.dumps(document, indent=4))
+        with open('document.json','w') as f :
+            json.dump(document, f, indent=4)
 
 
     def closeEvent(self, close_event) :
