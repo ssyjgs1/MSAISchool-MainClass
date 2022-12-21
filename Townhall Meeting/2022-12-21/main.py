@@ -16,6 +16,7 @@ import sys
 import os
 from pathlib import Path
 import json
+import pandas as pd
 
 
 def get_supported_mime_types():
@@ -65,7 +66,15 @@ class Ui_MainWindow(QMainWindow):
         prev_action.triggered.connect(self.prev_bbox)
         self.addAction(prev_action)
 
-        self.savebbox = dict()
+        
+        save_action = QAction(self)
+        save_action.setShortcut(QKeySequence(Qt.CTRL | Qt.Key_S))
+        save_action.triggered.connect(self.savebbox)
+        self.addAction(save_action)
+
+
+
+
 
 
     def setupUi(self):
@@ -83,7 +92,7 @@ class Ui_MainWindow(QMainWindow):
 
         self.save = QAction(self)
         self.save.setObjectName(u"save")
-        self.save.triggered.connect(QCoreApplication.savebbox)
+        self.save.triggered.connect(self.savebbox)
 
         self.close = QAction(self)
         self.close.setObjectName(u"close")
@@ -279,6 +288,7 @@ class Ui_MainWindow(QMainWindow):
             self.painter.end()
 
             self.bbox_list.append(QRect(begin[0], begin[1], w, h))
+            print(type(self.bbox_list))
 
             self.is_paint = False
 
@@ -286,10 +296,9 @@ class Ui_MainWindow(QMainWindow):
         QWidget.mouseReleaseEvent(self, event)
 
     def savebbox(self, save_event) :
-        document = {"qrect" : self.bbox_list}
-        print(json.dumps(document, indent=4))
-        with open('document.json','w') as f :
-            json.dump(document, f, indent=4)
+        bbox_save_list = self.bbox_list
+        target_anno = pd.DataFrame(bbox_save_list)
+        target_anno.to_csv('./test.csv')
 
 
     def closeEvent(self, close_event) :
