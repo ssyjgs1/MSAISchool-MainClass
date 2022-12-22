@@ -40,7 +40,7 @@ class custom_dataset(Dataset) :
         
 
 # 디버깅 용도
-# if __name__ == '__main__' :
-#     test = custom_dataset("./dataset/train", transform=None)
-#     for i in test :
-#         pass
+if __name__ == '__main__' :
+    test = custom_dataset("./dataset/train", transform=None)
+    for i in test :
+        pass
