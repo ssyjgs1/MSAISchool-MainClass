@@ -1,4 +1,7 @@
 from collections import defaultdict # 초기화를 위해서 dummy를 만들어 주는 기능
+import os
+os.environ['KMP_DUPLICATE_LIB_OK']='True'
+
 
 class MetricMonitor :
     def __init__(self, float_precision=3) :

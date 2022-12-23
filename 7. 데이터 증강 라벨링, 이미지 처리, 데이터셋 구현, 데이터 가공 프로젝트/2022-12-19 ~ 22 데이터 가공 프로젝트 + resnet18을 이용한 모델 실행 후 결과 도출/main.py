@@ -9,6 +9,8 @@ from torchvision import models
 import torch.nn as nn
 from utils import train, validate, save_model
 import os
+os.environ['KMP_DUPLICATE_LIB_OK']='True'
+
 
 # device 정의
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')

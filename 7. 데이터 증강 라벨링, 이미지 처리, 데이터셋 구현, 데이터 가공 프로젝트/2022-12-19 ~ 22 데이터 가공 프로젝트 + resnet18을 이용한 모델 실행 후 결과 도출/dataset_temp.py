@@ -2,6 +2,8 @@ from torch.utils.data import Dataset
 import os
 import cv2
 import glob
+os.environ['KMP_DUPLICATE_LIB_OK']='True'
+
 
 label_dict = {"dekopon" : 0, "grapefruit" : 1, "kanpei" : 2, "orange" : 3}
 
