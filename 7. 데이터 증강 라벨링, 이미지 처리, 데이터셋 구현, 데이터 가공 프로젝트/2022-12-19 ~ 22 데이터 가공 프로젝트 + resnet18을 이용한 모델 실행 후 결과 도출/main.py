@@ -18,9 +18,9 @@ print(device)
 # train에 augmentation 멕이기
 train_transform = A.Compose([
     A.Resize(height=224, width=224),
-    # A.HorizontalFlip(p=1),
-    # A.RandomRotate90(p=1),
-    # A.VerticalFlip(p=1),
+    A.HorizontalFlip(p=1),
+    A.RandomRotate90(p=1),
+    A.VerticalFlip(p=1),
     # A.GaussNoise(p=1),
     ToTensorV2()
 ])
