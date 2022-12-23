@@ -4,6 +4,8 @@ import torch.nn as nn
 from collections import defaultdict # 초기화를 위해서 dummy를 만들어 주는 기능
 from metric_monitor_temp import MetricMonitor
 from tqdm import tqdm
+os.environ['KMP_DUPLICATE_LIB_OK']='True'
+
 
 # save model
 def save_model(model, save_dir, file_name='last.pt') :

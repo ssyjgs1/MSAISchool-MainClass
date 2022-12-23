@@ -9,6 +9,8 @@ from torchvision import models
 import torch.nn as nn
 from utils import train, validate, save_model
 import os
+os.environ['KMP_DUPLICATE_LIB_OK']='True'
+
 
 # device 정의
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -18,9 +20,9 @@ print(device)
 # train에 augmentation 멕이기
 train_transform = A.Compose([
     A.Resize(height=224, width=224),
-    # A.HorizontalFlip(p=1),
-    # A.RandomRotate90(p=1),
-    # A.VerticalFlip(p=1),
+    A.HorizontalFlip(p=1),
+    A.RandomRotate90(p=1),
+    A.VerticalFlip(p=1),
     # A.GaussNoise(p=1),
     ToTensorV2()
 ])
