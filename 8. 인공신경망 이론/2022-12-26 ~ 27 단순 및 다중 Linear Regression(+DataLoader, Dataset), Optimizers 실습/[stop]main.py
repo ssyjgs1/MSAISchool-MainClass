@@ -3,6 +3,9 @@ from dataset.mnist import load_mnist
 import matplotlib.pyplot as plt
 from optimizer import * # 직접 제작한 optimizer 모듈 로드
 from util import *
+from multi_layer_net import MultiLayerNet
+from optimizer import *
+
 
 # 0. MNIST 데이터 읽기
 (x_train, t_train), (x_test, t_test) = load_mnist(normalize=True) # x : 이미지값, t : 라벨값
@@ -41,6 +44,7 @@ for i in range(max_iterations) :
         train_loss[key].append(loss)
 
     if i % 100 == 0 :
+        print("i >>", i)
         for key in optimizers.keys() :
             loss = networks[key].loss(x_batch, t_batch)
             print(key + ":" + str(loss))

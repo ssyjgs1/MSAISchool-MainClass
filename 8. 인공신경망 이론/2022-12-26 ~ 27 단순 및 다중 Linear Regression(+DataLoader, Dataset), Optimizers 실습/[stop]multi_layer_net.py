@@ -1,6 +1,8 @@
 # Multi Layer Net
 import numpy as np
 from collections import OrderedDict
+from layer import *
+from gradient import *
 
 
 """
@@ -61,7 +63,7 @@ class MultiLayerNet :
         y = self.predict(x)
         weight_decay = 0
         for idx in range(1, self.hidden_layer_number + 2) :
-            W = self.params["w" + str(idx)]
+            W = self.params["W" + str(idx)]
             weight_decay += 0.5 * self.weight_decay_lambda * np.sum(W ** 2)
         return self.last_layer.forward(y, t) + weight_decay
 
