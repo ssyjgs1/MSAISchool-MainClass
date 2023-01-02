@@ -1,10 +1,13 @@
 import os
-
+import glob
 import torch
 import copy
 import albumentations as A
 from albumentations.pytorch import ToTensorV2
 import matplotlib.pyplot as plt
+import torchvision.models as models
+import torch.nn as nn
+
 
 def visualize_aug(dataset, idx=0, samples=10, cols=5) :
     dataset = copy.deepcopy(dataset)
@@ -101,3 +104,28 @@ def save_model(model, save_dir, file_name="best_resnet.pt") :
     output_path = os.path.join(save_dir, file_name)
 
     torch.save(model.state_dict(), output_path)
+
+
+def test_species(test_loader, device) :
+    net = models.__dict__["resnet50"](pretrained=False)
+    num_ftrs = net.fc.in_features
+    net.fc = nn.Linear(num_ftrs, 53)
+    net.to(device)
+
+
+def folder_name_det(folder_path) :
+    # folder_path = ./dataset/test  folder_name = "*"
+    folder_name = glob.glob(os.path.join(folder_path,"*"))
+    det = {}
+    for index, (path) in enumerate(folder_name) :
+        temp_name = path.split("\\")
+        temp_name = temp_name[1]
+        print(temp_name, index)
+        # ./dataset/test\\ace of clubs
+
+        det[str(index)] = temp_name
+        # det[key] = val
+    # print(folder_name)
+    print(det)
+    return det
+folder_name_det("./dataset/test")
