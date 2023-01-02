@@ -12,10 +12,10 @@ from torch.utils.data import DataLoader
 from customdataset import customDataset
 from timm.loss import LabelSmoothingCrossEntropy
 from adamp import AdamP # pip install adamp
-from utils import train
+from utils import train, test_species, test_show
+
 
 def main(opt) :
-
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     # augmentation
@@ -39,9 +39,12 @@ def main(opt) :
     # dataset
     train_dataset = customDataset(img_path=opt.train_path,transform=train_transform)
     val_dataset = customDataset(img_path=opt.val_path, transform=val_transform)
+    test_dataset = customDataset(img_path=opt.test_path, transform=val_transform)
+    
     # dataloader
     train_loader = DataLoader(train_dataset, batch_size=opt.batch_size, shuffle=True)
     val_loader = DataLoader(val_dataset, batch_size=opt.batch_size, shuffle=False)
+    test_loader = DataLoader(test_dataset, batch_size=1, shuffle=False)
 
     # model call
     # train -> label -> 53
@@ -65,14 +68,22 @@ def main(opt) :
     save_dir = opt.save_path
     os.makedirs(save_dir, exist_ok=True)
     # train(num_epoch, model, train_loader, val_loader, criterion, optimizer, scheduler, save_dir, device)
-    train(opt.epoch, net, train_loader, val_loader, criterion, optimizer,
-          scheduler, save_dir, device)
+    
+    train_flg = opt.train_flg
+    if train_flg == True :
+        train(opt.epoch, net, train_loader, val_loader, criterion, optimizer, scheduler, save_dir, device)
+    else :
+        # test_species(test_loader, device)
+        test_show(test_loader, device)
+
 
 def parse_opt() :
     parser = argparse.ArgumentParser()
     parser.add_argument("--train-path", type=str, default="./dataset/train", help="train data path")
     parser.add_argument("--val-path" ,type=str, default="./dataset/valid", help="val data path")
-    parser.add_argument("--batch-size", type=int, default=64, help="batch size")
+    parser.add_argument("--test-path" ,type=str, default="./dataset/test", help="test data path")
+    parser.add_argument("--train-flg", type=bool, default=False, help="train or test mode flg")
+    parser.add_argument("--batch-size", type=int, default=128, help="batch size")
     parser.add_argument("--epoch", type=int, default=100, help="epoch number")
     parser.add_argument("--lr", type=float, default=0.001, help="lr number")
     parser.add_argument("--save-path", type=str, default="./weights", help="save mode path")

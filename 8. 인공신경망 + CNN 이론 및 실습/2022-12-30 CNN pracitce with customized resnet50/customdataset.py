@@ -32,7 +32,7 @@ class customDataset(Dataset) :
         if self.transform is not None:
             image = self.transform(image=image)["image"]
 
-        return image, label
+        return image, label, image_path
 
     def __len__(self):
         return len(self.all_img_path)
