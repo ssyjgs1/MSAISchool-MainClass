@@ -64,3 +64,24 @@ def train(n_epochs, train_loader, val_loader, model, optimizer, criterion, devic
     plt.legend(["Train", "Validation"])
     plt.title("Train vs Validation Loss")
     plt.show()
+
+
+def acc_function(correct, total) :
+    acc = correct / total * 100
+    return acc
+
+
+def test(model, data_loader, device) :
+    model.eval()
+    correct = 0
+    total = 0
+    with torch.no_grad() :
+        for i, (image, label) in enumerate(data_loader) :
+            images, labels = image.to(device), label.to(device)
+            output = model(images)
+            _, argmax = torch.max(output, 1)
+            total += images.size(0)
+            correct += (labels == argmax).sum().item()
+
+        acc = acc_function(correct, total)
+        print(f"Acc >>> {acc}%")
